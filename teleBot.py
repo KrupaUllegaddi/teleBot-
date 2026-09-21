@@ -134,8 +134,16 @@ def main():
     app.add_handler(CommandHandler("reset", reset_command))
     app.add_handler(MessageHandler(filters.TEXT & ~filters.COMMAND, handle_message))
 
-    print("Cat meme bot (Gemini-powered) is running... press Ctrl+C to stop.")
-    app.run_polling()
+    port = int(os.environ.get("PORT", 8443))
+    render_url = os.environ.get("RENDER_EXTERNAL_URL")  # Render sets this automatically
+
+    print("Cat meme bot (Gemini-powered) is running via webhook...")
+    app.run_webhook(
+        listen="0.0.0.0",
+        port=port,
+        url_path=BOT_TOKEN,
+        webhook_url=f"{render_url}/{BOT_TOKEN}"
+    )
 
 
 if __name__ == "__main__":
