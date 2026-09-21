@@ -135,7 +135,7 @@ def main():
     app.add_handler(MessageHandler(filters.TEXT & ~filters.COMMAND, handle_message))
 
     port = int(os.environ.get("PORT", 8443))
-    render_url = os.environ.get("RENDER_EXTERNAL_URL")  # Render sets this automatically
+    render_url = os.environ.get("RENDER_EXTERNAL_URL")
 
     print("Cat meme bot (Gemini-powered) is running via webhook...")
     app.run_webhook(
